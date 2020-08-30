@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://github.com/qflyr020/qflyr020.github.io.git">
-  <title>hellworld | Hexo</title>
+  <title>hive | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Question： hive 怎么链接mr计算的？   hive存的是什么数据和hdfs有何区别？   hive建表分桶和hdfs文件存储的原理？   笛卡尔积怎么产生的   列存储和行存储？  HiveIntroduction1Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表(类似于RDBMS中的表)，并提供类SQL查询功能；Hive是由Facebook开源，用于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hellworld">
-<meta property="og:url" content="https://github.com/qflyr020/qflyr020.github.io.git/2020/08/20/hello-world/index.html">
+<meta property="og:title" content="hive">
+<meta property="og:url" content="https://github.com/qflyr020/qflyr020.github.io.git/2020/08/20/hive-my/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Question： hive 怎么链接mr计算的？   hive存的是什么数据和hdfs有何区别？   hive建表分桶和hdfs文件存储的原理？   笛卡尔积怎么产生的   列存储和行存储？  HiveIntroduction1Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表(类似于RDBMS中的表)，并提供类SQL查询功能；Hive是由Facebook开源，用于">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-20T11:16:25.470Z">
-<meta property="article:modified_time" content="2020-08-24T03:19:00.571Z">
+<meta property="article:modified_time" content="2020-08-30T15:33:59.069Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,19 +154,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hive-my" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      hellworld
+      hive
     </h1>
   
 
         
-        <a href="/2020/08/20/hello-world/" class="archive-article-date">
+        <a href="/2020/08/20/hive-my/" class="archive-article-date">
   	<time datetime="2020-08-20T11:16:25.470Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
 </a>
         
@@ -174,19 +174,186 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <h2 id="Question："><a href="#Question：" class="headerlink" title="Question："></a>Question：</h2><ol>
+<li>hive 怎么链接mr计算的？</li>
+</ol>
+<ol start="2">
+<li>hive存的是什么数据和hdfs有何区别？</li>
+</ol>
+<ol start="3">
+<li>hive建表分桶和hdfs文件存储的原理？</li>
+</ol>
+<ol start="5">
+<li>笛卡尔积怎么产生的</li>
+</ol>
+<ol start="6">
+<li>列存储和行存储？</li>
+</ol>
+<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表(类似于RDBMS中的表)，并提供类SQL查询功能；Hive是由Facebook开源，用于解决海量结构化日志的数据统计。</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><h3 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h3><h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><h4 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h4><ol>
+<li><p>basic data type</p>
+<p>integers</p>
+<p>float</p>
+<p>fixed</p>
+<p>string</p>
+<p>boolean</p>
+<p>binary</p>
+</li>
+<li><p>array</p>
+<p>Array map <strong>struct union</strong> ？</p>
+</li>
+</ol>
+<h3 id="HQL"><a href="#HQL" class="headerlink" title="HQL"></a>HQL</h3><h4 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h4><p>DDL主要是用在定义、修改数据库对象的结构 或 数据类型。</p>
+<h5 id="Database-1"><a href="#Database-1" class="headerlink" title="Database"></a>Database</h5><ol>
+<li><p>create</p>
+</li>
+<li><p>drop</p>
+</li>
+<li><p>alter</p>
+</li>
+<li><p>show</p>
+</li>
+<li><p>use</p>
+</li>
+<li><p>desc</p>
+</li>
+</ol>
+<h5 id="Table-1"><a href="#Table-1" class="headerlink" title="Table"></a>Table</h5><ol>
+<li><p>External-外部表</p>
+</li>
+<li><p>comment-表的注释</p>
+</li>
+<li><p>partition-分区</p>
+</li>
+<li><p>clusterer-分桶</p>
+</li>
+<li><p>sorted-桶排序</p>
+</li>
+</ol>
+<h4 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h4><h4 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h4><h5 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h5><h5 id="where"><a href="#where" class="headerlink" title="where"></a>where</h5><ol>
+<li>紧跟from</li>
+<li>别名无效</li>
+<li>null注意</li>
+<li>支持正则表达式</li>
+</ol>
+<h5 id="groupby"><a href="#groupby" class="headerlink" title="groupby"></a>groupby</h5><p>having用于groupby分组</p>
+<h5 id="表连接"><a href="#表连接" class="headerlink" title="表连接"></a>表连接</h5><ol>
+<li><p>内连接 inner join</p>
+</li>
+<li><p>外连接 outer join</p>
+<ul>
+<li>left</li>
+<li>right</li>
+<li>full</li>
+</ul>
+</li>
+<li><p>多表连接</p>
+<p>连接资源较多，每个join对应一个mr</p>
+</li>
+</ol>
+<h5 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a>order by</h5><ol>
+<li>允许别名排序</li>
+<li>ASC-升序、DESC降序</li>
+<li>排序字段要出现在select字段中</li>
+<li>只有一个reduce</li>
+</ol>
+<h5 id="sort-by"><a href="#sort-by" class="headerlink" title="sort by"></a>sort by</h5><ol>
+<li>局部排序</li>
+<li>可以设置多个reduce排序</li>
+</ol>
+<h5 id="distribute-by"><a href="#distribute-by" class="headerlink" title="distribute by"></a>distribute by</h5><h5 id="cluster-by"><a href="#cluster-by" class="headerlink" title="cluster by"></a>cluster by</h5><ol>
+<li>distribute和sort字段相同时可以使用此。</li>
+<li>是能做升序排序</li>
+</ol>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p>show functions</p>
+<h5 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h5><h5 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h5><ol>
+<li>round</li>
+<li>ceil-向上取整</li>
+<li>floor-向下取整</li>
+<li>abs</li>
+<li>pwner</li>
+<li>sqrt</li>
+<li>log2</li>
+</ol>
+<h5 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h5><ol>
+<li>lower</li>
+<li>upper</li>
+<li>||</li>
+<li>concat</li>
+<li>concat_ws</li>
+<li>spilt</li>
+<li>substr</li>
+</ol>
+<h5 id="条件函数"><a href="#条件函数" class="headerlink" title="条件函数"></a>条件函数</h5><h5 id="UDTF函数"><a href="#UDTF函数" class="headerlink" title="UDTF函数"></a>UDTF函数</h5><ol>
+<li><p>explode-炸裂函数</p>
+<p>drop table explode1;</p>
+<p>truncate table explode1;</p>
+</li>
+</ol>
+<p>   create table explode1( </p>
+<p>   id int, </p>
+<p>   storage string</p>
+<p>   )</p>
+<p>   row format delimited fields terminated by ‘\t’;</p>
+<p>   select id ,tag from explode1 lateral view explode(split(storage,’,’)) t1 as tag;</p>
+<ol start="2">
+<li>lateralview</li>
+</ol>
+<p>​       select name ,sub,mark from studscore lateral view explode(score) t1 as sub,mark;</p>
+<p>​       select name ,max(mark) from (select name ,sub,mark from studscore lateral view explode(score) t1 as sub,mark) t2 group by t2.name;</p>
+<h5 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h5><p>Over partition  order by </p>
+<h5 id="window"><a href="#window" class="headerlink" title="window"></a>window</h5><p>rows between … and …  </p>
+<p>unbounded preceding。组内第一行数据</p>
+<p>n preceding。组内当前行的前n行数据</p>
+<p>current row。当前行数据</p>
+<p>n following。组内当前行的后n行数据</p>
+<p>unbounded following。组内最后一行数据</p>
+<h5 id="排名函数"><a href="#排名函数" class="headerlink" title="排名函数"></a>排名函数</h5><p>row_number</p>
+<p>rank</p>
+<p>dense_rank </p>
+<p>select cname,sname,score,row_number() over (partition by cname order by score desc) rank1 from sort01;</p>
+<p>select cname,sname,score,rank1 from  ( select cname,sname,score,dense_rank() over (partition by cname order by score desc) rank1 from sort01) tmep where rank1&lt;3;</p>
+<h5 id="序列函数"><a href="#序列函数" class="headerlink" title="序列函数"></a>序列函数</h5><p>lag。返回当前数据行的上一行数据</p>
+<p>lead。返回当前数据行的下一行数据</p>
+<p>first_value。取分组内排序后，截止到当前行，第一个值</p>
+<p>last_value。分组内排序后，截止到当前行，最后一个值</p>
+<p>ntile。将分组的数据按照顺序切分成n片，返回当前切片值</p>
+<h5 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h5><p>连续值</p>
+<h4 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h4><h4 id="元数据管理与存储"><a href="#元数据管理与存储" class="headerlink" title="元数据管理与存储"></a>元数据管理与存储</h4><h4 id="Hive调优策略"><a href="#Hive调优策略" class="headerlink" title="Hive调优策略"></a>Hive调优策略</h4><h2 id="Hue"><a href="#Hue" class="headerlink" title="Hue"></a>Hue</h2><h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><h2 id="Sqoop"><a href="#Sqoop" class="headerlink" title="Sqoop"></a>Sqoop</h2><h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><ol>
+<li><p>NBA三连冠</p>
+<p>1）思路：连续值问题，先row_number排序—-&gt;再用连续值字段-row_number—-&gt;再group by </p>
+<p>2）编写sql     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"> 第一步得到分组的字段</span><br><span class="line"> select  team  ,year, year-row_number() over(partition by team order by year)  gid  from nba01;</span><br><span class="line"> result：</span><br><span class="line"> team    year    gid</span><br><span class="line"> 公牛    1991    1990</span><br><span class="line"> 公牛    1992    1990</span><br><span class="line"> 公牛    1993    1990</span><br><span class="line"> 公牛    1996    1992</span><br><span class="line"> 公牛    1997    1992</span><br><span class="line"> 公牛    1998    1992</span><br><span class="line"> 凯尔特人 2008    2007</span><br><span class="line"> 活塞    1990    1989</span><br><span class="line"> 活塞    2004    2002</span><br><span class="line"> 湖人    2000    1999</span><br><span class="line"> 湖人    2001    1999</span><br><span class="line"> 湖人    2002    1999</span><br><span class="line"> 湖人    2009    2005</span><br><span class="line"> 湖人    2010    2005</span><br><span class="line"> 火箭    1994    1993</span><br><span class="line"> 火箭    1995    1993</span><br><span class="line"> 热火    2006    2005</span><br><span class="line"> 马刺    1999    1998</span><br><span class="line"> 马刺    2003    2001</span><br><span class="line"> 马刺    2005    2002</span><br><span class="line"> 马刺    2007    2003</span><br><span class="line"></span><br><span class="line">第二步得到连续三年的队伍</span><br><span class="line"> select  team , count(*) countchampion from (select  team  ,year, year-row_number() over(partition by team order by year) gid  from nba01) tmp group by team ,gid having countchampion&gt;2;</span><br><span class="line"> result:</span><br><span class="line"> team    countchampion</span><br><span class="line"> 公牛    3</span><br><span class="line"> 公牛    3</span><br><span class="line"> 湖人    3</span><br><span class="line"> </span><br><span class="line"> 第三步标记出时间</span><br><span class="line">  select  concat(collect_set(year)[2],team)teamyear, count(*)  countchampion from (select team,year, year-row_number() over(partition by team order by year)  gid  from nba01) tmp group by team,gid having countchampion&gt;2;</span><br><span class="line">  result:</span><br><span class="line">  teamyear        countchampion</span><br><span class="line">  1993公牛        3</span><br><span class="line">  1998公牛        3</span><br><span class="line">  2002湖人        3</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>峰谷</p>
+<p>1）思路</p>
+<p>​      先根据id和时间（时间需要转化成标准）排序—-&gt;计算当前行和前后的差—- &gt;计算top</p>
+<p>​      有些特殊情况需要考虑</p>
+<p>![image-20200830191522245](/Users/zhanghan/Library/Application Support/typora-user-images/image-20200830191522245.png)</p>
+<p>2）sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">第一步根据时间排序</span><br><span class="line">select id,time,price, row_number() over(partition by id order by date_format(concat(&#39;2020-01-01&#39;,&quot; &quot;,time,&quot;:00&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;)) ordernum  from price;    </span><br><span class="line"></span><br><span class="line">第二步计算当前行和前后的差</span><br><span class="line">select id,time,price, nvl(price-lag(price) over(partition by id order by date_format(concat(&#39;2020-01-01&#39;,&quot; &quot;,time,&quot;:00&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;)),0) pricejj  from price;    </span><br><span class="line"></span><br><span class="line">第三步使用case when 返回需要的数据</span><br><span class="line">with tmp as(select id,time,price, nvl(price-lag(price) over(partition by id order by date_format(concat(&#39;2020-01-01&#39;,&quot; &quot;,time,&quot;:00&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;)),0) price1,nvl(price-lead(price) over(partition by id order by date_format(concat(&#39;2020-01-01&#39;,&quot; &quot;,time,&quot;:00&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;)),0) price2 from price )</span><br><span class="line">select id,time,price ,</span><br><span class="line">case </span><br><span class="line">   when price1&gt;0 and price2&gt;0  then &#39;波峰&#39;</span><br><span class="line">   when price1&lt;0 and price2&lt;0  then &#39;波谷&#39;</span><br><span class="line">   else &quot;未知&quot; end  feature from tmp where (price1&gt;0 and price2&gt;0) or (price1&lt;0 and price2&lt;0);</span><br><span class="line">   </span><br><span class="line">result：</span><br><span class="line">id      time    price   feature</span><br><span class="line">sh66688 9:50    26.75   波谷</span><br><span class="line">sh66688 9:55    27.13   波峰</span><br><span class="line">sh66688 10:00   26.3    波谷</span><br><span class="line">sh66688 10:05   27.09   波峰</span><br><span class="line">sh66688 10:15   26.11   波谷</span><br><span class="line">sh66688 10:25   27.49   波峰</span><br><span class="line">sh66688 10:30   26.7    波谷</span><br><span class="line">sh66688 10:40   28.26   波峰</span><br><span class="line">sh66688 10:55   26.48   波谷</span><br><span class="line">sh66688 11:00   27.41   波峰</span><br><span class="line">sh66688 11:05   26.7    波谷</span><br><span class="line">sh66688 11:25   26.35   波谷</span><br><span class="line">sh66688 13:00   29.45   波峰</span><br><span class="line">sh66688 13:20   28.2    波谷</span><br><span class="line">sh66688 13:35   30.45   波峰</span><br><span class="line">sh66688 13:45   30.17   波谷</span><br><span class="line">sh66688 13:55   30.75   波峰</span><br><span class="line">sh66688 14:05   29.61   波谷</span><br><span class="line">sh66688 14:15   30.79   波峰</span><br><span class="line">sh66688 14:20   29.82   波谷</span><br><span class="line">sh66688 14:25   30.09   波峰</span><br><span class="line">sh66688 14:30   29.61   波谷</span><br><span class="line">sh66688 14:45   30.88   波峰</span><br><span class="line">sh66688 14:50   30.73   波谷</span><br><span class="line">sh88888 9:40    66.56   波谷</span><br><span class="line">sh88888 10:00   68.34   波峰</span><br><span class="line">sh88888 10:10   67.35   波谷</span><br><span class="line">sh88888 10:30   70.62   波峰</span><br><span class="line">sh88888 10:45   70.29   波谷</span><br><span class="line">sh88888 11:00   71.13   波峰</span><br><span class="line">sh88888 11:05   70.24   波谷</span><br><span class="line">sh88888 11:10   70.37   波峰</span><br><span class="line">sh88888 11:20   69.73   波谷</span><br><span class="line">sh88888 13:30   77.22   波峰</span><br><span class="line">sh88888 13:40   76.9    波谷</span><br><span class="line">sh88888 13:50   78.75   波峰</span><br><span class="line">sh88888 13:55   78.3    波谷</span><br><span class="line">sh88888 14:05   78.99   波峰</span><br><span class="line">sh88888 14:10   78.35   波谷</span><br><span class="line">sh88888 14:15   78.37   波峰</span><br><span class="line">sh88888 14:20   78.07   波谷</span><br><span class="line">sh88888 14:30   79.78   波峰</span><br><span class="line">sh88888 14:35   79.72   波谷</span><br><span class="line">sh88888 14:40   80.71   波峰</span><br><span class="line">sh88888 14:45   79.92   波谷</span><br><span class="line">sh88888 14:50   80.49   波峰</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>浏览时长步长 </p>
+<p>1）思路</p>
+<p>​      先根据id和时间（时间需要转化成标准）排序—-&gt; 计算当前行和前行的差  —-&gt;添加字段，—-&gt;30给1  else 0  —-&gt; 使用window子句计算当前行和第一行的的和，用于group by —-&gt; group by 的到结果</p>
+<p>2）sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">第一步按照用户和时间排序</span><br><span class="line">select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata order by id,time;    </span><br><span class="line"></span><br><span class="line">第二步添加前一个时间字段</span><br><span class="line">with tmp as(</span><br><span class="line">select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata </span><br><span class="line">)</span><br><span class="line">select id,time,browseid,lag(time) over(partition by id order by time) min  from tmp;    </span><br><span class="line"></span><br><span class="line">第三步计算前后相差时间</span><br><span class="line">with tmp as(</span><br><span class="line">select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata </span><br><span class="line">)</span><br><span class="line">select id,time,browseid,nvl((unix_timestamp(time) - unix_timestamp(lag(time) over(partition by id order by time)))&#x2F;60,0)  from tmp;    </span><br><span class="line"></span><br><span class="line">第四步.min&gt;&#x3D;30 给 1 小于30 0 </span><br><span class="line">   select id ,min,if (min&gt;&#x3D;30 ,1,0) gid from (</span><br><span class="line">     select id,time,browseid,nvl((unix_timestamp(time) - unix_timestamp(lag(time) over(partition by id order by time)))&#x2F;60,0) min               from (</span><br><span class="line">      select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata</span><br><span class="line">    ) t1) tmp1;</span><br><span class="line">      </span><br><span class="line">第五步.给同一个用户&lt;30前的数据和&gt;30后的数据分开</span><br><span class="line">  select id,time,min,sum(gid) over(partition by id order by time rows between unbounded preceding  and current row ) gid1 from (</span><br><span class="line">   select id ,time,min,if (min&gt;&#x3D;30 ,1,0) gid from (</span><br><span class="line">     select id,time,browseid,nvl((unix_timestamp(time) - unix_timestamp(lag(time) over(partition by id order by time)))&#x2F;60,0) min</span><br><span class="line">     from (</span><br><span class="line">       select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata</span><br><span class="line">     ) t1</span><br><span class="line">   ) tmp1</span><br><span class="line"> ) tmp2;</span><br><span class="line"></span><br><span class="line">第六步.计算总时长和步长</span><br><span class="line">with t1 as (</span><br><span class="line">  select id,time,min,sum(gid) over(partition by id order by time rows between unbounded preceding  and current row ) gid1 from (</span><br><span class="line">   select id ,time,min,if (min&gt;&#x3D;30 ,1,0) gid from (</span><br><span class="line">     select id,time,browseid,nvl((unix_timestamp(time) - unix_timestamp(lag(time) over(partition by id order by time)))&#x2F;60,0) min</span><br><span class="line">     from (</span><br><span class="line">       select id,date_format(translate(concat(dt,&quot;:00&quot;),&quot;&#x2F;&quot;,&quot;-&quot;),&#39;yyyy-MM-dd HH:mm:ss&#39;) time,browseid from webdata</span><br><span class="line">     ) t1</span><br><span class="line">   ) tmp1</span><br><span class="line"> ) tmp2)</span><br><span class="line">select id ,cast(sum(min) as int) shichang,count(1) as buchang from t1 group by id,gid1;</span><br><span class="line"></span><br><span class="line">result:</span><br><span class="line">id      shichang        buchang</span><br><span class="line">022f86d4533740ad914f233cbd9c4430        51      8</span><br><span class="line">307d9dce3b7f495ab8ad6033f8c54930        45      8</span><br><span class="line">307d9dce3b7f495ab8ad6033f8c54930        605     9</span><br><span class="line">32258fe7130844399859aec54b6df5ff        46      6</span><br><span class="line">32258fe7130844399859aec54b6df5ff        116     7</span><br><span class="line">80ea80b2e5a64cbebfaf34aa797125f0        51      5</span><br><span class="line">934e8bee978a42c7a8dbb4cfa8af0b4f        32      6</span><br><span class="line">934e8bee978a42c7a8dbb4cfa8af0b4f        72      7</span><br><span class="line">95273392ab1a4579914273cdd1f3a3ae        40      10</span><br><span class="line">95273392ab1a4579914273cdd1f3a3ae        1202    9</span><br><span class="line">de0096ad04ec4273b0462c7da7d79653        53      8</span><br><span class="line">de0096ad04ec4273b0462c7da7d79653        605     9</span><br><span class="line">f5ae36c6cdda40d5954e08a2d14954a7        40      6</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
 
       
 
@@ -266,7 +433,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://github.com/qflyr020/qflyr020.github.io.git/2020/08/20/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://github.com/qflyr020/qflyr020.github.io.git/2020/08/20/hive-my/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -280,9 +447,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/08/26/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
-    <a href="/2020/08/20/hive/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hive</div>
+  
+    <a href="/2020/08/20/week/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">week</div>
       <i class="icon-circle-right"></i>
     </a>
   
