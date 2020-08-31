@@ -159,15 +159,60 @@
       
         <h1 id="title-日志采集"><a href="#title-日志采集" class="headerlink" title="title: 日志采集"></a>title: 日志采集</h1><p>日志采集：logstash filebeat flume scribe<br>数据异构：kettle datax sqoop</p>
 <p>本次采用filebeat收集日志，kafka发送日志的方式</p>
-<p>flume</p>
-<p>1.串行模式</p>
-<p>2.复制模式</p>
-<p>3.负载均衡模式</p>
-<p>4.聚合模式</p>
-<p>source、channel、sink</p>
-<p>source：数据接收的组件</p>
-<p>channel：缓冲通道 </p>
-<p>event</p>
+<p>安装步骤参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html">https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html</a></p>
+<p>./filebeat setup -e</p>
+<p>错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-08-31T14:51:30.389+0800    ERROR    instance&#x2F;beat.go:951    Exiting: Index management requested but the Elasticsearch output is not configured&#x2F;enabled</span><br><span class="line">Exiting: Index management requested but the Elasticsearch output is not configured&#x2F;enabled</span><br></pre></td></tr></table></figure>
+
+<p>解决</p>
+<p>./filebeat  -e</p>
+<p>日志拉去方式</p>
+<p>1.input log output txt</p>
+<p>2.input log output kafka</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">output.kafka:</span><br><span class="line">  # initial brokers for reading cluster metadata</span><br><span class="line">  hosts: [&quot;localhost:9092&quot;]</span><br><span class="line"></span><br><span class="line">  # message topic selection + partitioning</span><br><span class="line">  topic: &#39;quickstart-events&#39;</span><br><span class="line">  partition.round_robin:</span><br><span class="line">    reachable_only: false</span><br><span class="line"></span><br><span class="line">  required_acks: 1</span><br><span class="line">  compression: gzip</span><br><span class="line">  max_message_bytes: 1000000</span><br></pre></td></tr></table></figure>
+
+<p>注意：hosts 需要使用ip才可以正常运行</p>
+<p>kafka</p>
+<p>1.下载：<a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads">http://kafka.apache.org/downloads</a></p>
+<p>   1）有源码文件：***.src</p>
+<p>​         打开源码需要安装gradle，类似maven：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/vitoboy/p/12487648.html">https://www.cnblogs.com/vitoboy/p/12487648.html</a></p>
+<p>   2）有安装文件</p>
+<p>​         <a target="_blank" rel="noopener" href="http://kafka.apache.org/quickstart">http://kafka.apache.org/quickstart</a></p>
+<p>​         先启动zookeeper</p>
+<p>​        启动kafka</p>
+<p>​        添加topic</p>
+<pre><code>错误1
+localhost:kafka_2.11-2.2.1 zhanghan$ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
+Missing required argument &quot;[partitions]&quot;
+
+错误2
+localhost:kafka_2.11-2.2.1 zhanghan$ bin/kafka-topics.sh --create --topic quickstart-events --partitions 2 --bootstrap-server localhost:9092
+Missing required argument &quot;[replication-factor]&quot;
+
+错误3
+localhost:kafka_2.11-2.2.1 zhanghan$ bin/kafka-topics.sh --create --topic quickstart-events --partitions 2 --replication-factor 2  --bootstrap-server localhost:9092
+Error while executing topic command : org.apache.kafka.common.errors.InvalidReplicationFactorException: Replication factor: 2 larger than available brokers: 1.
+[2020-08-31 19:26:33,168] ERROR java.util.concurrent.ExecutionException: org.apache.kafka.common.errors.InvalidReplicationFactorException: Replication factor: 2 larger than available brokers: 1.
+    at org.apache.kafka.common.internals.KafkaFutureImpl.wrapAndThrow(KafkaFutureImpl.java:45)
+    at org.apache.kafka.common.internals.KafkaFutureImpl.access$000(KafkaFutureImpl.java:32)
+    at org.apache.kafka.common.internals.KafkaFutureImpl$SingleWaiter.await(KafkaFutureImpl.java:89)
+    at org.apache.kafka.common.internals.KafkaFutureImpl.get(KafkaFutureImpl.java:260)
+    at kafka.admin.TopicCommand$AdminClientTopicService.createTopic(TopicCommand.scala:175)
+    at kafka.admin.TopicCommand$TopicService$class.createTopic(TopicCommand.scala:134)
+    at kafka.admin.TopicCommand$AdminClientTopicService.createTopic(TopicCommand.scala:157)
+    at kafka.admin.TopicCommand$.main(TopicCommand.scala:60)
+    at kafka.admin.TopicCommand.main(TopicCommand.scala)
+Caused by: org.apache.kafka.common.errors.InvalidReplicationFactorException: Replication factor: 2 larger than available brokers: 1.
+
+
+localhost:bin zhanghan$ kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
+bootstrap-server is not a recognized option
+将bootstrap-server改成broker-list</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">启动 zookeeper，kafka，producer，consumer</span><br><span class="line">producer：</span><br><span class="line">localhost:bin zhanghan$ kafka-console-producer.sh --broker-list  localhost:9092 --topic quickstart-events</span><br><span class="line"></span><br><span class="line">consumer</span><br><span class="line">localhost:kafka_2.11-2.2.1 zhanghan$ bin&#x2F;kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>概念：</p>
+<h2 id="broker-list"><a href="#broker-list" class="headerlink" title="broker-list"></a>broker-list</h2><p>broker指的是kafka的服务端，可以是一个服务器也可以是一个集群。producer和consumer都相当于这个服务端的客户端。</p>
+<p>​     </p>
 
       
 
