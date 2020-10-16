@@ -1128,6 +1128,116 @@ Caused by: org.apache.kafka.common.errors.InvalidReplicationFactorException: Rep
 
 
   
+    <article id="post-zookeeper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/20/zookeeper/">zookeeper</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/20/zookeeper/" class="archive-article-date">
+  	<time datetime="2020-08-20T11:16:25.470Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="主从模式的问题"><a href="#主从模式的问题" class="headerlink" title="主从模式的问题"></a>主从模式的问题</h4><ol>
+<li><p>主节点崩溃</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）如何判定主节点崩溃？可能会出现脑裂（split- brain）的情况，即多个主节点运行</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">2）数据如何给到新的主节点？</span><br><span class="line">   实时同步到从节点，方便从节点随时接手</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>从节点崩溃</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1）正在执行的任务怎么办？</span><br><span class="line">   使用事务，要么成功要么失败，再同步给主节点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>通信故障</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1）仅一次和最多一次</span><br><span class="line"></span><br><span class="line">1）以主节点为主</span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ol>
+<p>解决</p>
+<p>1.主节点选举</p>
+<p>2.崩溃检测</p>
+<p>3.组成员关系管理</p>
+<p>4.元数据管理</p>
+<p>拜占庭将军问题，即分布在不同地区的将军共同攻击某个敌人，但是可能存在命令不同的情况（奸细、丢失消息）</p>
+<p>Paxos算法假设不存在拜占庭将军问题问题，解决数据一致性问题</p>
+<p>数据一致性</p>
+<ol>
+<li>二阶段提交</li>
+<li>三阶段提交</li>
+<li>Paxos</li>
+</ol>
+<p>Create</p>
+<p>[zk: localhost:2181(CONNECTED) 1] create -s /zk-test 123</p>
+<p>[zk: localhost:2181(CONNECTED) 1] create -e /zk-tmp 123</p>
+<p>set</p>
+<p>zkclient</p>
+<p>1.怎么做到一直监听</p>
+<p>   Thread.sleep(Integer.MAX_VALUE);</p>
+<p>选举机制</p>
+<p>半数机制：</p>
+<p>lock和synchronized</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/20/zookeeper/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
