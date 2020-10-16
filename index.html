@@ -152,6 +152,140 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-工作流调度系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Azkaban使用问题</p>
+<p>问题1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2020&#x2F;10&#x2F;08 11:21:44.107 +0800 INFO [AzkabanWebServer] [Azkaban] Starting Azkaban Server</span><br><span class="line">2020&#x2F;10&#x2F;08 11:21:44.125 +0800 INFO [AzkabanServer] [Azkaban] Loading azkaban settings file from .&#x2F;internal&#x2F;..&#x2F;..&#x2F;conf</span><br><span class="line">2020&#x2F;10&#x2F;08 11:21:44.126 +0800 INFO [AzkabanServer] [Azkaban] Loading azkaban properties file</span><br><span class="line">2020&#x2F;10&#x2F;08 11:21:44.155 +0800 INFO [AzkabanDatabaseUpdater] [Azkaban] Use scripting directory sql</span><br><span class="line">2020&#x2F;10&#x2F;08 11:21:44.155 +0800 INFO [AzkabanDatabaseUpdater] [Azkaban] Will auto update any changes.</span><br><span class="line">2020&#x2F;10&#x2F;08 11:21:44.161 +0800 INFO [DataSourceUtils] [Azkaban] h2 DB path: &#x2F;opt&#x2F;lagou&#x2F;servers&#x2F;azkaban&#x2F;azkaban-solo-server-0.1.0-SNAPSHOT&#x2F;bin&#x2F;.&#x2F;h2</span><br><span class="line">Exception in thread &quot;main&quot; java.io.IOException: Cannot find &#39;database.properties&#39; file in &#x2F;opt&#x2F;lagou&#x2F;servers&#x2F;azkaban&#x2F;azkaban-solo-server-0.1.0-SNAPSHOT&#x2F;bin&#x2F;sql&#x2F;database.properties</span><br><span class="line">        at azkaban.database.AzkabanDatabaseSetup.loadDBProps(AzkabanDatabaseSetup.java:178)</span><br><span class="line">        at azkaban.database.AzkabanDatabaseSetup.loadTableInfo(AzkabanDatabaseSetup.java:102)</span><br><span class="line">        at azkaban.database.AzkabanDatabaseUpdater.runDatabaseUpdater(AzkabanDatabaseUpdater.java:82)</span><br><span class="line">        at azkaban.soloserver.AzkabanSingleServer.main(AzkabanSingleServer.java:71)</span><br><span class="line"></span><br><span class="line">解决：必须使用绝对路径去开启</span><br><span class="line"></span><br><span class="line">[root@linux121 azkaban-solo-server-0.1.0-SNAPSHOT]# bin&#x2F;start-solo.sh </span><br></pre></td></tr></table></figure>
+
+
+
+<p>hive使用问题</p>
+<p>问题2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  hive (default)&gt; create table user_clicks(id string,click_time string ,index string) partitioned by(dt string) row format delimited fields terminated by &#39;\t&#39; ;</span><br><span class="line">  FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br><span class="line">解决：</span><br><span class="line">[root@linux123 bin]# .&#x2F;hive --service metastore</span><br><span class="line">2020-10-11 16:13:46: Starting Hive Metastore Server</span><br></pre></td></tr></table></figure>
+
+
+
+<p>问题3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt;   set cur_date &#x3D; SELECT CURRENT_DATE ;</span><br><span class="line">hive (default)&gt;   select $&#123;hiveconf:cur_date&#125;;</span><br><span class="line">NoViableAltException(256@[])</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser_SelectClauseParser.selectClause(HiveParser_SelectClauseParser.java:908)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.selectClause(HiveParser.java:41968)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.atomSelectStatement(HiveParser.java:36720)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatement(HiveParser.java:36987)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.regularBody(HiveParser.java:36633)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpressionBody(HiveParser.java:35822)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpression(HiveParser.java:35710)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2284)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1333)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:208)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:77)</span><br><span class="line">        at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:70)</span><br><span class="line">        at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:468)</span><br><span class="line">        at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1317)</span><br><span class="line">        at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1457)</span><br><span class="line">        at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1237)</span><br><span class="line">        at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1227)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:233)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:184)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:403)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)</span><br><span class="line">        at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:686)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.run(RunJar.java:244)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:158)</span><br><span class="line">FAILED: ParseException line 1:9 cannot recognize input near &#39;SELECT&#39; &#39;CURRENT_DATE&#39; &#39;&lt;EOF&gt;&#39; in select clause</span><br></pre></td></tr></table></figure>
+
+
+
+<p>作业：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">思路：</span><br><span class="line">1.把日志数据导入到hdfs中</span><br><span class="line">2.凌晨两点import.job 从hdfs中读取数据存入到hive表中</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">drop table user_clicks;</span><br><span class="line"></span><br><span class="line">  import.sql</span><br><span class="line">  use default;</span><br><span class="line">  create table user_clicks(id string,click_time string, index string) partitioned by(dt string) row format delimited fields terminated by &#39;\t&#39; ;</span><br><span class="line">  set cur_date&#x3D;SELECT CURRENT_DATE;</span><br><span class="line">load data inpath &quot;&#x2F;user_clicks&#x2F;$&#123;hiveconf:cur_date&#125;&#x2F;$&#123;hiveconf:cur_date&#125;.dat&quot; into table user_clicks partition(dt&#x3D;&quot;$&#123;hiveconf:cur_date&#125;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  import.job 如何把数据存到hive中</span><br><span class="line">  </span><br><span class="line">3.import.job执行完成开始analysis.job 统计每日活跃用户存入到hive表中</span><br><span class="line"></span><br><span class="line">-- 插入查询的结果数据 insert into table tabC partition(month&#x3D;&#39;202002&#39;) select id, name, area from tabC where month&#x3D;&#39;202001&#39;;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/08/%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%B0%83%E5%BA%A6%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-HBase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[root@linux121 ~]# hbase shell</span><br><span class="line"></span><br><span class="line">hbase(main):006:0&gt; alter &#39;friends&#39;,METHOD &#x3D;&gt; &#39;table_att&#39;,&#39;Coprocessor&#39;&#x3D;&gt;&#39;hdfs:&#x2F;&#x2F;linux121:9000&#x2F;processor&#x2F;processor.jar|hbase.ChangeObserver|1001|&#39;</span><br><span class="line">Updating all regions with the new schema...</span><br><span class="line">0&#x2F;1 regions updated.</span><br><span class="line">1&#x2F;1 regions updated.</span><br><span class="line">Done.</span><br><span class="line">0 row(s) in 3.0680 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):007:0&gt; delete &#39;friends&#39;, &#39;uid1&#39;, &#39;finfo:uid2&#39;</span><br><span class="line">0 row(s) in 0.2310 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):008:0&gt; scan &#39;friends&#39;</span><br><span class="line">ROW                                                   COLUMN+CELL                                                                                                                                                  </span><br><span class="line"> uid1                                                 column&#x3D;finfo:uid3, timestamp&#x3D;1602857122203, value&#x3D;uid3                                                                                                       </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid4, timestamp&#x3D;1602857124508, value&#x3D;uid4                                                                                                       </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid5, timestamp&#x3D;1602857124508, value&#x3D;uid5                                                                                                       </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid6, timestamp&#x3D;1602857124508, value&#x3D;uid6                                                                                                       </span><br><span class="line"> uid3                                                 column&#x3D;finfo:uid1, timestamp&#x3D;1602857124515, value&#x3D;uid1                                                                                                       </span><br><span class="line"> uid3                                                 column&#x3D;finfo:uid5, timestamp&#x3D;1602857124515, value&#x3D;uid5                                                                                                       </span><br><span class="line">3 row(s) in 0.0400 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):009:0&gt; delete &#39;friends&#39; ,&#39;uid1&#39;,&#39;finfo:uid3&#39;</span><br><span class="line">0 row(s) in 0.1200 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):010:0&gt; scan &#39;friends&#39;</span><br><span class="line">ROW                                                   COLUMN+CELL                                                                                                                                                  </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid4, timestamp&#x3D;1602857124508, value&#x3D;uid4                                                                                                       </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid5, timestamp&#x3D;1602857124508, value&#x3D;uid5                                                                                                       </span><br><span class="line"> uid2                                                 column&#x3D;finfo:uid6, timestamp&#x3D;1602857124508, value&#x3D;uid6                                                                                                       </span><br><span class="line"> uid3                                                 column&#x3D;finfo:uid5, timestamp&#x3D;1602857124515, value&#x3D;uid5                                                                                                       </span><br><span class="line">2 row(s) in 0.0200 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):004:0&gt; create &#39;lagou&#39; ,&#39;base_info&#39;,&#39;extra_info&#39;</span><br><span class="line">0 row(s) in 1.4340 seconds</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hbase(main):006:0&gt; put &#39;lagou&#39;,&#39;rk1&#39;,&#39;base_info:name&#39;,&#39;wang&#39;</span><br><span class="line">0 row(s) in 0.1790 seconds</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hbase(main):009:0&gt; get &#39;lagou&#39;,&#39;rk1&#39;</span><br><span class="line">COLUMN                                                CELL                                                                                                                                                         </span><br><span class="line"> base_info:name                                       timestamp&#x3D;1602072239450, value&#x3D;wang                                                                                                                          </span><br><span class="line">1 row(s) in 0.0450 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):020:0&gt; get &#39;lagou&#39;,&#39;rk1&#39;,&#39;base_info&#39;</span><br><span class="line">COLUMN                                                CELL                                                                                                                                                         </span><br><span class="line"> base_info:age                                        timestamp&#x3D;1602072491281, value&#x3D;30                                                                                                                            </span><br><span class="line"> base_info:name                                       timestamp&#x3D;1602072239450, value&#x3D;wang                                                                                                                          </span><br><span class="line">2 row(s) in 0.0140 seconds</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):031:0&gt; alter &#39;t1&#39;,METHOD &#x3D;&gt; &#39;table_att&#39;,&#39;Coprocessor&#39;&#x3D;&gt;&#39;hdfs:&#x2F;&#x2F;linux121:9000&#x2F;processor&#x2F;processor.jar|hbase.MyProcessor|1002|&#39;</span><br><span class="line"></span><br><span class="line">ERROR: org.apache.hadoop.hbase.DoNotRetryIOException: Class hbase.MyProcessor cannot be loaded Set hbase.table.sanity.checks to false at conf or table descriptor if you want to bypass sanity checks</span><br><span class="line">        at org.apache.hadoop.hbase.master.HMaster.warnOrThrowExceptionForFailure(HMaster.java:1819)</span><br><span class="line">        at org.apache.hadoop.hbase.master.HMaster.sanityCheckTableDescriptor(HMaster.java:1680)</span><br><span class="line">        at org.apache.hadoop.hbase.master.HMaster.modifyTable(HMaster.java:2207)</span><br><span class="line">        at org.apache.hadoop.hbase.master.MasterRpcServices.modifyTable(MasterRpcServices.java:1188)</span><br><span class="line">        at org.apache.hadoop.hbase.protobuf.generated.MasterProtos$MasterService$2.callBlockingMethod(MasterProtos.java:58547)</span><br><span class="line">        at org.apache.hadoop.hbase.ipc.RpcServer.call(RpcServer.java:2339)</span><br><span class="line">        at org.apache.hadoop.hbase.ipc.CallRunner.run(CallRunner.java:123)</span><br><span class="line">        at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:188)</span><br><span class="line">        at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:168)</span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    idea打包换jar名后再alter可以了</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@linux121 bin]# stop-hbase.sh </span><br><span class="line">stopping hbasecat: &#x2F;tmp&#x2F;hbase-root-master.pid: No such file or directory</span><br><span class="line"></span><br><span class="line">尝试解决方案</span><br><span class="line">解决办法：在hbase-env.sh中修改pid文件的存放路径</span><br><span class="line">export HBASE_PID_DIR&#x3D;&#x2F;var&#x2F;hadoop&#x2F;pids</span><br><span class="line">后出现</span><br><span class="line"></span><br><span class="line">[root@linux121 bin]# stop-hbase.sh </span><br><span class="line">stopping hbasecat: &#x2F;var&#x2F;hadoop&#x2F;pids&#x2F;hbase-root-master.pid: No such file or directory</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">2020-10-09 23:55:07,492 ERROR [main] zookeeper.ZooKeeperWatcher: hconnection-0x778659330x0, quorum&#x3D;linux121:2181,linux122:2181,linux123:2181, baseZNode&#x3D;&#x2F;hbase Received unexpected KeeperException, re-throwing exception</span><br><span class="line">org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode &#x3D; ConnectionLoss for &#x2F;hbase&#x2F;hbaseid</span><br><span class="line">        at org.apache.zookeeper.KeeperException.create(KeeperException.java:99)</span><br><span class="line">        at org.apache.zookeeper.KeeperException.create(KeeperException.java:51)</span><br><span class="line">        at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:1045)</span><br><span class="line">        at org.apache.hadoop.hbase.zookeeper.RecoverableZooKeeper.exists(RecoverableZooKeeper.java:220)</span><br><span class="line">        at org.apache.hadoop.hbase.zookeeper.ZKUtil.checkExists(ZKUtil.java:420)</span><br><span class="line">        at org.apache.hadoop.hbase.zookeeper.ZKClusterId.readClusterIdZNode(ZKClusterId.java:65)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ZooKeeperRegistry.getClusterId(ZooKeeperRegistry.java:105)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.retrieveClusterId(ConnectionManager.java:907)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ConnectionManager$HConnectionImplementation.&lt;init&gt;(ConnectionManager.java:691)</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory.java:238)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory.java:218)</span><br><span class="line">        at org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(ConnectionFactory.java:119)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.jruby.javasupport.JavaMethod.invokeDirectWithExceptionHandling(JavaMethod.java:450)</span><br><span class="line">        at org.jruby.javasupport.JavaMethod.invokeStaticDirect(JavaMethod.java:362)</span><br><span class="line">        at org.jruby.java.invokers.StaticMethodInvoker.call(StaticMethodInvoker.java:58)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:312)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:169)</span><br><span class="line">        at org.jruby.ast.CallOneArgNode.interpret(CallOneArgNode.java:57)</span><br><span class="line">        at org.jruby.ast.InstAsgnNode.interpret(InstAsgnNode.java:95)</span><br><span class="line">        at org.jruby.ast.NewlineNode.interpret(NewlineNode.java:104)</span><br><span class="line">        at org.jruby.ast.BlockNode.interpret(BlockNode.java:71)</span><br><span class="line">        at org.jruby.evaluator.ASTInterpreter.INTERPRET_METHOD(ASTInterpreter.java:74)</span><br><span class="line">        at org.jruby.internal.runtime.methods.InterpretedMethod.call(InterpretedMethod.java:169)</span><br><span class="line">        at org.jruby.internal.runtime.methods.DefaultMethod.call(DefaultMethod.java:191)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:302)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.callBlock(CachingCallSite.java:144)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:148)</span><br><span class="line">        at org.jruby.RubyClass.newInstance(RubyClass.java:822)</span><br><span class="line">        at org.jruby.RubyClass$i$newInstance.call(RubyClass$i$newInstance.gen:65535)</span><br><span class="line">        at org.jruby.internal.runtime.methods.JavaMethod$JavaMethodZeroOrNBlock.call(JavaMethod.java:249)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:292)</span><br><span class="line">        at org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:135)</span><br><span class="line">        at opt.lagou.servers.hbase_minus_1_dot_3_dot_1.bin.hirb.__file__(&#x2F;opt&#x2F;lagou&#x2F;servers&#x2F;hbase-1.3.1&#x2F;bin&#x2F;hirb.rb:131)</span><br><span class="line">        at opt.lagou.servers.hbase_minus_1_dot_3_dot_1.bin.hirb.load(&#x2F;opt&#x2F;lagou&#x2F;servers&#x2F;hbase-1.3.1&#x2F;bin&#x2F;hirb.rb)</span><br><span class="line">        at org.jruby.Ruby.runScript(Ruby.java:697)</span><br><span class="line">        at org.jruby.Ruby.runScript(Ruby.java:690)</span><br><span class="line">        at org.jruby.Ruby.runNormally(Ruby.java:597)</span><br><span class="line">        at org.jruby.Ruby.runFromMain(Ruby.java:446)</span><br><span class="line">        at org.jruby.Main.doRunFromMain(Main.java:369)</span><br><span class="line">        at org.jruby.Main.internalRun(Main.java:258)</span><br><span class="line">        at org.jruby.Main.run(Main.java:224)</span><br><span class="line">        at org.jruby.Main.run(Main.java:208)</span><br><span class="line">        at org.jruby.Main.main(Main.java:188)</span><br><span class="line">HBase Shell; enter &#39;help&lt;RETURN&gt;&#39; for list of supported commands.</span><br><span class="line">Type &quot;exit&lt;RETURN&gt;&quot; to leave the HBase Shell</span><br><span class="line">Version 1.3.1, r930b9a55528fe45d8edce7af42fef2d35e77677a, Thu Apr  6 19:36:54 PDT 2017</span><br><span class="line"></span><br><span class="line">解决方法：</span><br><span class="line">重新启动hadoop  ：start-all.sh</span><br><span class="line">在接着输入：start-hbase.sh</span><br><span class="line">启动hbase：hbase shell</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/07/HBase/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-日志采集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -175,8 +309,17 @@
 <p>解决：使用./filebeat  -e命令启动</p>
 </li>
 </ul>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p> <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/how-filebeat-works.html#harvester">harvesters</a></p>
+<p>负责读取某一文件</p>
+<p> <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/how-filebeat-works.html#input">inputs</a> </p>
+<p>负责管理文件列表，管理harvesters</p>
 <h2 id="日志拉取"><a href="#日志拉取" class="headerlink" title="日志拉取"></a>日志拉取</h2><ul>
-<li>input log output txt</li>
+<li>input<ol>
+<li>multiline</li>
+<li>22</li>
+<li>22</li>
+</ol>
+</li>
 </ul>
 <ul>
 <li>input log output kafka</li>
@@ -356,7 +499,9 @@ Caused by: org.apache.kafka.common.errors.InvalidReplicationFactorException: Rep
 </ol>
 <h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表(类似于RDBMS中的表)，并提供类SQL查询功能；Hive是由Facebook开源，用于解决海量结构化日志的数据统计。</span><br></pre></td></tr></table></figure>
 
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><h3 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h3><h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><h4 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h4><ol>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>安装完成如何启动</p>
+<p>[root@linux121 bin]# ./hive</p>
+<h3 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h3><h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><h4 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h4><ol>
 <li><p>basic data type</p>
 <p>integers</p>
 <p>float</p>
@@ -532,73 +677,6 @@ Caused by: org.apache.kafka.common.errors.InvalidReplicationFactorException: Rep
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/08/20/hive-my/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-week" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/20/week/">mysql</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/20/week/" class="archive-article-date">
-  	<time datetime="2020-08-20T11:16:25.470Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>qps：每秒处理的查询数</p>
-<p>tps：每秒处理的事务数</p>
-<p>iops：每秒处理的I/O操作次数</p>
-<p>最大连接数：</p>
-<p>线程数：</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/20/week/">展开全文 >></a>
         </p>
       
 
@@ -878,100 +956,13 @@ Caused by: org.apache.kafka.common.errors.InvalidReplicationFactorException: Rep
     <article id="post-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/20/mysql/">week</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/20/mysql/" class="archive-article-date">
-  	<time datetime="2020-08-20T11:16:25.470Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>week-plan</p>
-<table>
-<thead>
-<tr>
-<th>一</th>
-<th>二</th>
-<th>三</th>
-<th>四</th>
-<th>五</th>
-<th>六</th>
-<th>日</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>6:00</strong>-8:00study</td>
-<td><strong>6:00</strong>-8:00</td>
-<td><strong>6:00</strong>-8:00</td>
-<td><strong>6:00</strong>-8:00</td>
-<td><strong>6:00</strong>-8:00</td>
-<td><strong>6:00</strong>-8:00</td>
-<td><strong>6:00</strong>-8:00</td>
-</tr>
-<tr>
-<td>9:00-11:30work</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>12:00-13:00sleep</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>13:00-17:30work</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>18:00-19:00sports</td>
-</tr>
-<tr>
-<td></td>
-<td>18:00-19:00sports</td>
-<td></td>
-<td></td>
-<td>18:00-20:00sports</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>21:00-<strong>22:00</strong>  hadoop</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>21:00-<strong>22:00</strong>  sports</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>22:00-<strong>23:00</strong>  sports</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+        <p>qps：每秒处理的查询数</p>
+<p>tps：每秒处理的事务数</p>
+<p>iops：每秒处理的I/O操作次数</p>
+<p>最大连接数：</p>
+<p>线程数：</p>
 
       
 
